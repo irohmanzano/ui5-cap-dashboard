@@ -5,6 +5,7 @@
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form"
     xmlns:u="sap.ui.unified"
+    xmlns:viz="sap.viz.ui5.controls"
 >
     <Page
         id="pageOverview"
@@ -56,7 +57,7 @@
                             <CustomListItem
                                 id="itemListFiles"
                                 type="Active"
-                                press=".loadFile"
+                                press=".triggerLoadDashboardDate"
                             >
                                 <VBox
                                     id="containerItemListFiles"
@@ -67,6 +68,36 @@
                             </CustomListItem>
                         </items>
                     </List>
+                </VBox>
+                <VBox id="containerDashboard">
+                    <viz:VizFrame
+                        id="vizFrameTotalPerCreator"
+                        vizType="bar"
+                        width="100%"
+                        selectData=".selectCreatorData"
+                        class="sapUiMediumMarginTop"
+                    />
+
+                    <Text
+                        id="txtDislayCreatorRITMsTip"
+                        text="{i18n>txtDislayCreatorRITMsTip}"
+                        textAlign="Center"
+                        width="100%"
+                        class="sapUiMediumMarginTop"
+                        visible="false"
+                    />
+                    <viz:VizFrame
+                        id="vizFrameDailyRITMsByCreator"
+                        vizType="column"
+                        width="100%"
+                    />
+
+                    <viz:VizFrame
+                        id="vizFrameTotalPerDate"
+                        vizType="timeseries_line"
+                        width="100%"
+                        class="sapUiMediumMarginTop"
+                    />
                 </VBox>
             </VBox>
         </content>

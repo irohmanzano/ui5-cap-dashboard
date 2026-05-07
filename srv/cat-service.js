@@ -24,21 +24,6 @@ async function readFile (file) {
 }
 
 module.exports = cds.service.impl(async function () {
-    this.on('getDashboardData', async (req) => {
-        const { Sheets } = this.entities;
-        const { ID } = req.data;
-        const tx = this.transaction(req);
-
-        const data = await tx.run(SELECT.one.from(Sheets).where({ ID }));
-        
-        if(!data) {
-            req.reject(404, 'No data found.');
-            return ({ message: 'No data found.' });
-        }
-
-        return JSON.stringify(data);
-    });
-
     this.after('CREATE', 'Sheets', async (data, req) => {
         const { ID } = data;
         const { Sheets } = this.entities;
