@@ -92,7 +92,7 @@ sap.ui.define([
         loadFile: function (oEvent) {
             const object = oEvent.getSource().getBindingContext('remotedata').getObject();
             const remotedata = this.getOwnerComponent().getModel('remotedata');
-            const oCtxBinding = remotedata.bindContext('/readFile(...)');
+            const oCtxBinding = remotedata.bindContext('/getDashboardData(...)');
             oCtxBinding.setParameter('ID', object.ID);
             oCtxBinding.execute().then(() => {
                 const res = oCtxBinding.getBoundContext().getObject().value;
