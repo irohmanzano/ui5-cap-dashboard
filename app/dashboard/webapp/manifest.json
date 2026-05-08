@@ -95,14 +95,14 @@
       "routes": [
         {
           "pattern": "",
-          "name": "overview",
-          "target": "overview"
+          "name": "dashboard",
+          "target": "dashboard"
         }
       ],
       "targets": {
-        "overview": {
-          "viewId": "overview",
-          "viewName": "Overview"
+        "dashboard": {
+          "viewId": "dashboard",
+          "viewName": "Dashboard"
         }
       }
     },

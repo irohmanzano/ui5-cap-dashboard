@@ -5,9 +5,10 @@
 sap.ui.define([
         "sap/ui/core/UIComponent",
         "sap/ui/Device",
-        "dashboard/model/models"
+        "dashboard/model/models",
+        'sap/ui/model/json/JSONModel'
     ],
-    function (UIComponent, Device, models) {
+    function (UIComponent, Device, models, JSONModel) {
         "use strict";
 
         return UIComponent.extend("dashboard.Component", {
@@ -23,12 +24,24 @@ sap.ui.define([
             init: function () {
                 // call the base component's init function
                 UIComponent.prototype.init.apply(this, arguments);
+                
+                const ToolBarModel = new JSONModel({
+                    selectedKey: 'dashboard',
+                    navigation: [
+                        {   
+                            icon: 'sap-icon://bbyd-dashboard',
+                            text: 'Dashboard',
+                            key: 'dashboard'
+                        }
+                    ]
+                });
 
                 // enable routing
                 this.getRouter().initialize();
 
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
+                this.setModel(ToolBarModel, 'ToolBarModel');
             }
         });
     }

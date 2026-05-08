@@ -1,7 +1,42 @@
 <mvc:View controllerName="dashboard.controller.App"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
-    xmlns="sap.m">
-    <Shell id="shell">
-        <App id="app" />
-    </Shell>
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:tnt="sap.tnt"
+>
+    <tnt:ToolPage 
+        id="toolPage"
+    >
+        <tnt:header>
+            <f:ShellBar
+                id="shellBar"
+                homeIcon="sap-icon://sap-ui5"
+                title="{i18n>shellBarTitle}"
+                showMenuButton="true"
+                menuButtonPressed=".expandMenu"
+            />
+        </tnt:header>
+        <tnt:sideContent>
+            <tnt:SideNavigation 
+                id="sideNavigation"
+            >
+                <tnt:NavigationList 
+                    id="navigationList"
+                    items="{ToolBarModel>/navigation}"
+                    selectedKey="{ToolBarModel>/selectedKey}"
+                    itemSelect=".onItemSelect"
+                >
+                    <tnt:NavigationListItem
+                        id="navigationListItem"
+                        icon="{ToolBarModel>icon}"
+                        text="{ToolBarModel>text}"
+                        key="{ToolBarModel>key}"
+                    />
+                </tnt:NavigationList>
+            </tnt:SideNavigation>
+        </tnt:sideContent>
+        <tnt:mainContents>
+            <App id="app" />
+        </tnt:mainContents>
+    </tnt:ToolPage>
 </mvc:View>
