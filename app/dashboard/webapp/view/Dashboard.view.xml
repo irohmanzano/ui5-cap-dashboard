@@ -2,8 +2,6 @@
     controllerName="dashboard.controller.Dashboard"
     xmlns="sap.m"
     xmlns:mvc="sap.ui.core.mvc"
-    xmlns:core="sap.ui.core"
-    xmlns:f="sap.ui.layout.form"
     xmlns:u="sap.ui.unified"
     xmlns:viz="sap.viz.ui5.controls"
 >
@@ -12,41 +10,7 @@
         title="{i18n>pageDashboardTitle}"
     >
         <content>
-            <VBox id="containerMainOverview" class="sapUiSmallMargin">
-                <f:Form id="formFileUpload">
-                    <f:layout>
-                        <f:ResponsiveGridLayout id="formFileUploadLayout" />
-                    </f:layout>
-                    <f:title>
-                        <core:Title id="formFileUploadTitle" text="{i18n>formFileUploadTitle}" />
-                    </f:title>
-                    <f:formContainers>
-                        <f:FormContainer id="formFileUploadContainer">
-                            <f:formElements>
-                                <f:FormElement id="formFileUploadTitleElement">
-                                    <f:fields>
-                                        <VBox id="containerFormFields">
-                                            <HBox
-                                                id="containerFormFileUploader"
-                                                alignItems="Center"
-                                            >
-                                                <Label id="lblFileUploaderExcel" text="{i18n>lblFileUploaderExcel}" />
-                                                <u:FileUploader
-                                                    id="fileUploaderExcel"
-                                                    class="sapUiSmallMarginBegin"
-                                                    buttonOnly="true"
-                                                    fileType="xlsx"
-                                                    change="uploadFile"
-                                                />
-                                            </HBox>
-                                        </VBox>
-                                    </f:fields>
-                                </f:FormElement>
-                            </f:formElements>
-                        </f:FormContainer>
-                    </f:formContainers>
-                </f:Form>
-
+            <VBox id="containerMainDashboard" class="sapUiSmallMargin">
                 <VBox id="containerFiles" class="sapUiMediumMarginTop">
                     <Label id="lblListFiles" text="{i18n>lblListFiles}" />
                     <List

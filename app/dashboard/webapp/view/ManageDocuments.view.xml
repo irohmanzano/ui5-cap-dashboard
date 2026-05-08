@@ -1,0 +1,70 @@
+<mvc:View
+    controllerName="dashboard.controller.ManageDocuments"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:u="sap.ui.unified"
+>
+    <Page id="pageManageDocuments" title="{i18n>pageManageDocuments}">
+        <content>
+            <VBox id="containerMainManageDocs" class="sapUiSmallMargin">
+                <f:Form id="formFileUpload">
+                    <f:layout>
+                        <f:ResponsiveGridLayout id="formFileUploadLayout" />
+                    </f:layout>
+                    <f:title>
+                        <core:Title id="formFileUploadTitle" text="{i18n>formFileUploadTitle}" />
+                    </f:title>
+                    <f:formContainers>
+                        <f:FormContainer id="formFileUploadContainer">
+                            <f:formElements>
+                                <f:FormElement id="formFileUploadTitleElement">
+                                    <f:fields>
+                                        <VBox id="containerFormFields">
+                                            <HBox
+                                                id="containerFormFileUploader"
+                                                alignItems="Center"
+                                            >
+                                                <Label id="lblFileUploaderExcel" text="{i18n>lblFileUploaderExcel}" />
+                                                <u:FileUploader
+                                                    id="fileUploaderExcel"
+                                                    class="sapUiSmallMarginBegin"
+                                                    buttonOnly="true"
+                                                    fileType="xlsx"
+                                                    change="uploadFile"
+                                                />
+                                            </HBox>
+                                        </VBox>
+                                    </f:fields>
+                                </f:FormElement>
+                            </f:formElements>
+                        </f:FormContainer>
+                    </f:formContainers>
+                </f:Form>
+
+                <VBox id="containerManagedDocsFiles" class="sapUiMediumMarginTop">
+                    <Label id="lblManagedDocsListFiles" text="{i18n>lblListFiles}" />
+                    <List
+                        id="listManagedDocsFiles"
+                        items="{remotedata>/Sheets}"
+                        mode="MultiSelect"
+                    >
+                        <items>
+                            <CustomListItem
+                                id="itemManagedDocsListFiles"
+                            >
+                                <VBox
+                                    id="containerManagedDocsItemListFiles"
+                                    class="sapUiTinyMargin"
+                                >
+                                    <Text id="txtManagedDocsFileName" text="{remotedata>name}" />
+                                </VBox>
+                            </CustomListItem>
+                        </items>
+                    </List>
+                </VBox>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

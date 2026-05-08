@@ -30,8 +30,13 @@ sap.ui.define([
                     navigation: [
                         {   
                             icon: 'sap-icon://bbyd-dashboard',
-                            text: 'Dashboard',
-                            key: 'dashboard'
+                            key: 'dashboard',
+                            text: 'Dashboard'
+                        },
+                        {
+                            icon: 'sap-icon://add-document',
+                            key: 'managedocuments',
+                            text: 'Manage Documents'
                         }
                     ]
                 });

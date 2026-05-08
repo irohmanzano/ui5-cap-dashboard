@@ -97,12 +97,21 @@
           "pattern": "",
           "name": "dashboard",
           "target": "dashboard"
+        },
+        {
+          "pattern": "managedocuments",
+          "name": "managedocuments",
+          "target": "managedocuments"
         }
       ],
       "targets": {
         "dashboard": {
           "viewId": "dashboard",
           "viewName": "Dashboard"
+        },
+        "managedocuments": {
+          "viewId": "managedocuments",
+          "viewName": "ManageDocuments"
         }
       }
     },

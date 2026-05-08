@@ -3,10 +3,12 @@ using { cuid } from '@sap/cds/common';
 namespace sap.db;
 
 entity Sheets: cuid {
-    name        : String;
-    type        : String;
-    file        : LargeBinary @Core.MediaType: type;
-    aggregations : Composition of one DataAggregations on aggregations.sheet = $self;
+    name            : String;
+    description     : String;
+    dateUploaded    : Date;
+    type            : String;
+    file            : LargeBinary @Core.MediaType: type;
+    aggregations    : Composition of one DataAggregations on aggregations.sheet = $self;
 }
 
 entity DataAggregations: cuid {
