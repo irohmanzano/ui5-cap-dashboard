@@ -70,27 +70,32 @@
                     </List>
                 </VBox>
                 <VBox id="containerDashboard">
-                    <viz:VizFrame
-                        id="vizFrameTotalPerCreator"
-                        vizType="bar"
-                        width="100%"
-                        selectData=".selectCreatorData"
-                        class="sapUiMediumMarginTop"
-                    />
-
-                    <Text
-                        id="txtDislayCreatorRITMsTip"
-                        text="{i18n>txtDislayCreatorRITMsTip}"
-                        textAlign="Center"
-                        width="100%"
-                        class="sapUiMediumMarginTop"
-                        visible="false"
-                    />
-                    <viz:VizFrame
-                        id="vizFrameDailyRITMsByCreator"
-                        vizType="column"
-                        width="100%"
-                    />
+                    <HBox id="containerCreatorRITMs">
+                        <VBox id="containerVFTotalPerCreator" width="50%">
+                            <viz:VizFrame
+                                id="vizFrameTotalPerCreator"
+                                vizType="bar"
+                                width="100%"
+                                selectData=".selectCreatorData"
+                                class="sapUiMediumMarginTop"
+                            />
+                        </VBox>
+                        <VBox id="containerVFDailyRITMsByCreator" width="50%">
+                            <Text
+                                id="txtDislayCreatorRITMsTip"
+                                text="{i18n>txtDislayCreatorRITMsTip}"
+                                textAlign="Center"
+                                width="100%"
+                                class="sapUiMediumMarginTop"
+                                visible="false"
+                            />
+                            <viz:VizFrame
+                                id="vizFrameDailyRITMsByCreator"
+                                vizType="column"
+                                width="100%"
+                            />
+                        </VBox>
+                    </HBox>
 
                     <viz:VizFrame
                         id="vizFrameTotalPerDate"

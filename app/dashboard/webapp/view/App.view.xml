@@ -10,7 +10,7 @@
         <tnt:header>
             <f:ShellBar
                 id="shellBar"
-                homeIcon="sap-icon://sap-ui5"
+                homeIcon="https://ui5.sap.com/1.96.45/resources/sap/ui/documentation/sdk/images/logo_ui5.png"
                 title="{i18n>shellBarTitle}"
                 showMenuButton="true"
                 menuButtonPressed=".expandMenu"

@@ -109,6 +109,11 @@ sap.ui.define([
             vizFrameTotalPerCreator.setVizProperties({
                 title: {
                     text: 'RITMs by Creator'
+                },
+                interaction: {
+                    selectability: {
+                        mode: 'single'
+                    }
                 }
             });
             vizFrameTotalPerCreator.setModel(remotedata);
@@ -239,6 +244,11 @@ sap.ui.define([
             vizFrameDailyRITMsByCreator.setVizProperties({
                 title: {
                     text: `Daily RITMs by ${creatorName}`
+                },
+                interaction: {
+                    selectability: {
+                        mode: 'single'
+                    }
                 }
             });
 
