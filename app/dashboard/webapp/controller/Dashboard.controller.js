@@ -4,8 +4,9 @@ sap.ui.define([
     'sap/ui/model/Filter',
     'sap/ui/model/FilterOperator',
     'sap/viz/ui5/controls/common/feeds/FeedItem',
-    'sap/viz/ui5/data/FlattenedDataset'
-], function (Controller, MessageToast, Filter, FilterOperator, FeedItem, FlattenedDataset) {
+    'sap/viz/ui5/data/FlattenedDataset',
+    'sap/ui/core/UIComponent'
+], function (Controller, MessageToast, Filter, FilterOperator, FeedItem, FlattenedDataset, UIComponent) {
     'use strict';
 
     return Controller.extend('dashboard.controller.Overview', {
@@ -206,6 +207,9 @@ sap.ui.define([
             vizFrameDailyRITMsByCreator.addFeed(feedItemDailyRITMsByCreatorTotalRITMs);
 
             txtDislayCreatorRITMsTip.setVisible(true);
+        },
+        openDialogSelectDataset: function () {
+            this.getOwnerComponent().openDialogSelectDataset(this);
         }
     });
 });

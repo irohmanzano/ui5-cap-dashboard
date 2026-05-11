@@ -93,6 +93,13 @@ module.exports = cds.service.impl(async function () {
         });
 
         const aggregations = { creators, creationDates };
-        await tx.run(UPDATE(Sheets).set({ aggregations }).where({ ID }));
+        const datesSorted = [...creationDates];
+        datesSorted.sort((a, b) => new Date(a.date) - new Date(b.date));
+        const dateRange = `${datesSorted.shift().date} - ${datesSorted.pop().date}`;
+        const uploadedBy = req.user.id || 'TEST USER';
+        const dateUploaded = new Date().toISOString().split('T')[0];
+        const timestamp = String(new Date().getTime());
+
+        await tx.run(UPDATE(Sheets).set({ uploadedBy, dateRange, dateUploaded, timestamp, aggregations }).where({ ID }));
     });
 });

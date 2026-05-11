@@ -9,60 +9,70 @@
     <Page id="pageManageDocuments" title="{i18n>pageManageDocuments}">
         <content>
             <VBox id="containerMainManageDocs" class="sapUiSmallMargin">
-                <f:Form id="formFileUpload">
-                    <f:layout>
-                        <f:ResponsiveGridLayout id="formFileUploadLayout" />
-                    </f:layout>
-                    <f:title>
-                        <core:Title id="formFileUploadTitle" text="{i18n>formFileUploadTitle}" />
-                    </f:title>
-                    <f:formContainers>
-                        <f:FormContainer id="formFileUploadContainer">
-                            <f:formElements>
-                                <f:FormElement id="formFileUploadTitleElement">
-                                    <f:fields>
-                                        <VBox id="containerFormFields">
-                                            <HBox
-                                                id="containerFormFileUploader"
-                                                alignItems="Center"
-                                            >
-                                                <Label id="lblFileUploaderExcel" text="{i18n>lblFileUploaderExcel}" />
-                                                <u:FileUploader
-                                                    id="fileUploaderExcel"
-                                                    class="sapUiSmallMarginBegin"
-                                                    buttonOnly="true"
-                                                    fileType="xlsx"
-                                                    change="uploadFile"
-                                                />
-                                            </HBox>
-                                        </VBox>
-                                    </f:fields>
-                                </f:FormElement>
-                            </f:formElements>
-                        </f:FormContainer>
-                    </f:formContainers>
-                </f:Form>
-
-                <VBox id="containerManagedDocsFiles" class="sapUiMediumMarginTop">
+                <VBox id="containerManagedDocsFiles">
                     <Label id="lblManagedDocsListFiles" text="{i18n>lblListFiles}" />
-                    <List
-                        id="listManagedDocsFiles"
-                        items="{remotedata>/Sheets}"
+
+                    <Table 
+                        id="tableManageDocsFiles"
+                        items='{
+                            path: "remotedata>/Sheets",
+                            sorter: [
+                                {
+                                    path: "dateUploaded",
+                                    descending: true
+                                },
+                                {
+                                    path: "timestamp",
+                                    descending: true
+                                }
+                            ]
+                        }'
                         mode="MultiSelect"
                     >
+                        <headerToolbar>
+                            <Toolbar id="toolbarMDF">
+                                <ToolbarSpacer id="tbsMDF" />
+                                <u:FileUploader
+                                    id="fileUploaderExcel"
+                                    class="sapUiSmallMarginBegin"
+                                    fileType="xlsx"
+                                    change=".uploadFile"
+                                    icon="sap-icon://add"
+                                    iconOnly="true"
+                                    buttonOnly="true"
+                                />
+                                <Button id="btnDeleteMDF" icon="sap-icon://delete" type="Reject" press=".deleteFiles" />
+                                <SearchField id="sFieldMDF" placeholder="{i18n>searchField}" liveChange=".searchTableMDF" width="25%" />
+                            </Toolbar>
+                        </headerToolbar>
+                        <columns>
+                            <Column id="colMDFName">
+                                <Text id="txtMDFName" text="{i18n>txtMDFName}" />
+                            </Column>
+                            <Column id="colMDFDateRange">
+                                <Text id="txtMDFDateRange" text="{i18n>txtMDFDateRange}" />
+                            </Column>
+                            <Column id="colMDFUploadedBy">
+                                <Text id="txtMDFUploadedBy" text="{i18n>txtMDFUploadedBy}" />
+                            </Column>
+                            <Column id="colMDFDateUploaded">
+                                <Text id="txtMDFDateUploaded" text="{i18n>txtMDFDateUploaded}" />
+                            </Column>
+                        </columns>
                         <items>
-                            <CustomListItem
-                                id="itemManagedDocsListFiles"
+                            <ColumnListItem
+                                id="itemsMangeDocsFiles"
+                                type="Active"
                             >
-                                <VBox
-                                    id="containerManagedDocsItemListFiles"
-                                    class="sapUiTinyMargin"
-                                >
-                                    <Text id="txtManagedDocsFileName" text="{remotedata>name}" />
-                                </VBox>
-                            </CustomListItem>
+                                <cells>
+                                    <Text id="txtItemName" text="{remotedata>name}" />
+                                    <Text id="txtItemDateRange" text="{remotedata>dateRange}" />
+                                    <Text id="txtItemUploadedBy" text="{remotedata>uploadedBy}" />
+                                    <Text id="txtItemDateUploaded" text="{remotedata>dateUploaded}" />
+                                </cells>
+                            </ColumnListItem>
                         </items>
-                    </List>
+                    </Table>
                 </VBox>
             </VBox>
         </content>

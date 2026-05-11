@@ -4,8 +4,10 @@ namespace sap.db;
 
 entity Sheets: cuid {
     name            : String;
-    description     : String;
     dateUploaded    : Date;
+    timestamp       : String;
+    uploadedBy      : String;
+    dateRange       : String;
     type            : String;
     file            : LargeBinary @Core.MediaType: type;
     aggregations    : Composition of one DataAggregations on aggregations.sheet = $self;

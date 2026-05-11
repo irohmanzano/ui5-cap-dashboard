@@ -11,29 +11,14 @@
     >
         <content>
             <VBox id="containerMainDashboard" class="sapUiSmallMargin">
-                <VBox id="containerFiles" class="sapUiMediumMarginTop">
-                    <Label id="lblListFiles" text="{i18n>lblListFiles}" />
-                    <List
-                        id="listFiles"
-                        items="{remotedata>/Sheets}"
-                    >
-                        <items>
-                            <CustomListItem
-                                id="itemListFiles"
-                                type="Active"
-                                press=".triggerLoadDashboardDate"
-                            >
-                                <VBox
-                                    id="containerItemListFiles"
-                                    class="sapUiTinyMargin"
-                                >
-                                    <Text id="txtFileName" text="{remotedata>name}" />
-                                </VBox>
-                            </CustomListItem>
-                        </items>
-                    </List>
-                </VBox>
+                <Button id="testt" text="test" press=".openDialogSelectDataset" />
                 <VBox id="containerDashboard">
+                    <viz:VizFrame
+                        id="vizFrameTotalPerDate"
+                        vizType="timeseries_line"
+                        width="100%"
+                        class="sapUiMediumMarginTop"
+                    />
                     <HBox id="containerCreatorRITMs">
                         <VBox id="containerVFTotalPerCreator" width="50%">
                             <viz:VizFrame
@@ -60,13 +45,6 @@
                             />
                         </VBox>
                     </HBox>
-
-                    <viz:VizFrame
-                        id="vizFrameTotalPerDate"
-                        vizType="timeseries_line"
-                        width="100%"
-                        class="sapUiMediumMarginTop"
-                    />
                 </VBox>
             </VBox>
         </content>

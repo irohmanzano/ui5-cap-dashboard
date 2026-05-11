@@ -1,0 +1,76 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog
+        id="dialogSelectDataset"
+        title="{i18n>dialogTitleSelectDataset}"
+        contentWidth="100%"
+        contentHeight="100%"
+    >
+        <content>
+            <VBox
+                id="containerDialogSelDataMain"
+                class="sapUiSmallMargin"           
+            >
+                <Table 
+                    id="tableSelectDataset"
+                    items='{
+                        path: "remotedata>/Sheets",
+                        sorter: [
+                            {
+                                path: "dateUploaded",
+                                descending: true
+                            },
+                            {
+                                path: "timestamp",
+                                descending: true
+                            }
+                        ]
+                    }'
+                >
+                    <headerToolbar>
+                        <Toolbar id="toolbarSelectDataset">
+                            <ToolbarSpacer id="tbsSelectDataset" />
+                            <SearchField id="sFieldSelectDataset" placeholder="{i18n>searchField}" liveChange=".searchTableSelectDataset" width="25%" />
+                        </Toolbar>
+                    </headerToolbar>
+                    <columns>
+                        <Column id="colSelectDatasetName">
+                            <Text id="txtSelectDatasetName" text="{i18n>txtMDFName}" />
+                        </Column>
+                        <Column id="colSelectDatasetDateRange">
+                            <Text id="txtSelectDatasetDateRange" text="{i18n>txtMDFDateRange}" />
+                        </Column>
+                        <Column id="colSelectDatasetUploadedBy">
+                            <Text id="txtSelectDatasetUploadedBy" text="{i18n>txtMDFUploadedBy}" />
+                        </Column>
+                        <Column id="colSelectDatasetDateUploaded">
+                            <Text id="txtSelectDatasetDateUploaded" text="{i18n>txtMDFDateUploaded}" />
+                        </Column>
+                    </columns>
+                    <items>
+                        <ColumnListItem
+                            id="itemsSelectDataset"
+                            type="Active"
+                            press=".setCurrentSheetModel"
+                        >
+                            <cells>
+                                <Text id="txtItemSelectDatasetName" text="{remotedata>name}" />
+                                <Text id="txtItemSelectDatasetDateRange" text="{remotedata>dateRange}" />
+                                <Text id="txtItemSelectDatasetUploadedBy" text="{remotedata>uploadedBy}" />
+                                <Text id="txtItemSelectDatasetDateUploaded" text="{remotedata>dateUploaded}" />
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </content>
+        <endButton>
+            <Button id="btnDialogSelectDatasetCancel" text="{i18n>btnCancel}" type="Reject" press=".closeDialogSelectDataset" />
+        </endButton>
+        <beginButton>
+            <Button id="btnDialogSelectDatasetConfirm" text="{i18n>btnConfirm}" type="Emphasized" />
+        </beginButton>
+    </Dialog>
+</core:FragmentDefinition>

@@ -6,9 +6,10 @@ sap.ui.define([
         "sap/ui/core/UIComponent",
         "sap/ui/Device",
         "dashboard/model/models",
-        'sap/ui/model/json/JSONModel'
+        'sap/ui/model/json/JSONModel',
+        './controller/SelectDataset'
     ],
-    function (UIComponent, Device, models, JSONModel) {
+    function (UIComponent, Device, models, JSONModel, SelectDataset) {
         "use strict";
 
         return UIComponent.extend("dashboard.Component", {
@@ -44,9 +45,18 @@ sap.ui.define([
                 // enable routing
                 this.getRouter().initialize();
 
+                this._SelectDataset = new SelectDataset(this.getRootControl());
+
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
                 this.setModel(ToolBarModel, 'ToolBarModel');
+            },
+            exit: function () {
+                this._SelectDataset.destroy();
+                delete this._SelectDataset;
+            },
+            openDialogSelectDataset: function(oController) {
+                this._SelectDataset.open(oController);
             }
         });
     }
