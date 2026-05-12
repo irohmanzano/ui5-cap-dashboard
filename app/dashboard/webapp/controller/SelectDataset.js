@@ -64,6 +64,7 @@ sap.ui.define([
                 },
                 setCurrentSheetModel: function (oEvent) {
                     const ID = oEvent.getSource().getBindingContext('remotedata').getObject().ID;
+                    oController.currentSheetID = ID;
                     oController.loadDashboardData(ID);
                     this.closeDialogSelectDataset();
                 }

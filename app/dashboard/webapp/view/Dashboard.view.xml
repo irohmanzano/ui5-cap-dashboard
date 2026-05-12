@@ -11,7 +11,11 @@
     >
         <content>
             <VBox id="containerMainDashboard" class="sapUiSmallMargin">
-                <Button id="testt" text="test" press=".openDialogSelectDataset" />
+                <VBox 
+                    id="containerDashboardTiles"
+                >
+                    <Button id="btnSelectDataset" text="{i18n>btnSelectDataset}" press=".openDialogSelectDataset" />
+                </VBox>
                 <VBox id="containerDashboard">
                     <viz:VizFrame
                         id="vizFrameTotalPerDate"

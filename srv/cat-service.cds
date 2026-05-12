@@ -6,4 +6,5 @@ service CatalogService {
     entity Creators as projection on db.Creators;
     entity CreationDates as projection on db.CreationDates;
     entity CreationsPerDate as projection on db.CreationsPerDate;
+    function getDashboardTilesData(ID: String) returns String;
 }

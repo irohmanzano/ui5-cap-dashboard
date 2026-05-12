@@ -42,6 +42,16 @@ sap.ui.define([
                     ]
                 });
 
+                const DashboardTilesModel = new JSONModel({
+                    fileSource: '',
+                    totalRITMs: 0,
+                    uniqueCreators: 0,
+                    topCreators: '',
+                    dateRange: '',
+                    busiestDays: '',
+                    avgRITMsPerDay: 0
+                });
+
                 // enable routing
                 this.getRouter().initialize();
 
@@ -50,6 +60,7 @@ sap.ui.define([
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
                 this.setModel(ToolBarModel, 'ToolBarModel');
+                this.setModel(DashboardTilesModel, 'DashboardTilesModel');
             },
             exit: function () {
                 this._SelectDataset.destroy();

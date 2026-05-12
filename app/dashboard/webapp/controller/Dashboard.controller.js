@@ -11,11 +11,6 @@ sap.ui.define([
 
     return Controller.extend('dashboard.controller.Overview', {
         currentSheetID: '',
-        triggerLoadDashboardDate: function (oEvent) {
-            const { ID } = oEvent.getSource().getBindingContext('remotedata').getObject();
-            this.currentSheetID = ID;
-            this.loadDashboardData(this.currentSheetID);
-        },
         loadDashboardData: function (ID) {
             const remotedata = this.getOwnerComponent().getModel('remotedata');
 
@@ -126,6 +121,7 @@ sap.ui.define([
             vizFrameTotalPerDate.removeAllFeeds();
             vizFrameTotalPerDate.addFeed(feedItemTotalPerDateDateCreated);
             vizFrameTotalPerDate.addFeed(feedItemTotalPerDateTotalRITMs);
+            this.getDashboardTilesData(ID);
         },
         selectCreatorData: function (oEvent) {
             const creatorName = oEvent.getParameter('data')[0].data.Creator;
@@ -210,6 +206,19 @@ sap.ui.define([
         },
         openDialogSelectDataset: function () {
             this.getOwnerComponent().openDialogSelectDataset(this);
+        },
+        getDashboardTilesData: function (ID) {
+            const remotedata = this.getOwnerComponent().getModel('remotedata');
+            const ctxBinding = remotedata.bindContext(`/getDashboardTilesData(...)`);
+            ctxBinding.setParameter('ID', ID);
+            ctxBinding.execute().then(() => {
+                const res = ctxBinding.getBoundContext().getObject().value;
+                const DashboardTilesModel = this.getOwnerComponent().getModel(DashboardTilesModel);
+                DashboardTilesModel.setData(res);
+            }).catch((err) => {
+                console.log(err);
+                MessageToast.show('Error fetching data.');
+            });
         }
     });
 });
