@@ -43,7 +43,7 @@ sap.ui.define([
                 });
 
                 const DashboardTilesModel = new JSONModel({
-                    fileSource: '',
+                    fileSource: 'Click to select dataset',
                     totalRITMs: 0,
                     uniqueCreators: 0,
                     topCreators: '',

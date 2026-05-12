@@ -69,8 +69,5 @@
         <endButton>
             <Button id="btnDialogSelectDatasetCancel" text="{i18n>btnCancel}" type="Reject" press=".closeDialogSelectDataset" />
         </endButton>
-        <beginButton>
-            <Button id="btnDialogSelectDatasetConfirm" text="{i18n>btnConfirm}" type="Emphasized" />
-        </beginButton>
     </Dialog>
 </core:FragmentDefinition>

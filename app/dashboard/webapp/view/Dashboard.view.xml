@@ -11,35 +11,91 @@
     >
         <content>
             <VBox id="containerMainDashboard" class="sapUiSmallMargin">
-                <VBox 
-                    id="containerDashboardTiles"
-                >
-                    <Button id="btnSelectDataset" text="{i18n>btnSelectDataset}" press=".openDialogSelectDataset" />
-                </VBox>
-                <VBox id="containerDashboard">
+                <HBox id="containerDashboardAggregations" class="sapUiSmallMarginEnd" justifyContent="SpaceBetween">
+                    <VBox 
+                        id="containerDashboardTiles"
+                    >
+                        <HBox id="containerDataset">
+                            <GenericTile id="gTileSelectedDataset" header="{i18n>gTileSelectedDatasetHeader}" class="sapUiTinyMargin" frameType="TwoByHalf" press=".openDialogSelectDataset" >
+                                <TileContent id="gTileContentSelectedDataset">
+                                    <Text id="txtSelectedDataset" text="{DashboardTilesModel>/fileSource}" />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile id="gTileDateRange" pressEnabled="false" header="{i18n>gTileDateRangeHeader}" class="sapUiTinyMargin" frameType="TwoByHalf" >
+                                <TileContent id="gTileContentDateRange">
+                                    <Text id="txtDateRange" text="{DashboardTilesModel>/dateRange}" />
+                                </TileContent>
+                            </GenericTile>
+                        </HBox>
+                        <HBox id="containerTiles" class="sapUiLargeMarginTop" >
+                            <GenericTile id="gTileTotalRITMs" pressEnabled="false" header="{i18n>gTileTotalRITMsHeader}" subheader="{i18n>gTileTotalRITMsSubHeader}" class="sapUiTinyMargin" >
+                                <TileContent id="gTileContentTotalRITMs" unit="{i18n>unitTotalRITMs}">
+                                    <NumericContent id="nContentTotalRITMs" value="{DashboardTilesModel>/totalRITMs}" icon="sap-icon://collections-management" />
+                                </TileContent>
+                            </GenericTile>
+
+                            <GenericTile id="gTileUniqueCreators" pressEnabled="false" header="{i18n>gTileUniqueCreatorsHeader}" subheader="{i18n>gTileUniqueCreatorsSubHeader}" class="sapUiTinyMargin" >
+                                <TileContent id="gTileContentUniqueCreators" unit="{i18n>unitUniqueCreators}">
+                                    <NumericContent id="nContentUniqueCreators" value="{DashboardTilesModel>/uniqueCreators}" icon="sap-icon://activity-individual" />
+                                </TileContent>
+                            </GenericTile>
+
+                            <GenericTile id="gTileAvgRITMsPerDay" pressEnabled="false" header="{i18n>gTileAvgRITMsPerDayHeader}" subheader="{i18n>gTileAvgRITMsPerDaySubHeader}" class="sapUiTinyMargin" >
+                                <TileContent id="gTileContentAvgRITMsPerDay" unit="{i18n>unitAvgRITMsPerDay}">
+                                    <NumericContent id="nContentAvgRITMsPerDay" value="{DashboardTilesModel>/avgRITMsPerDay}" icon="sap-icon://line-charts" />
+                                </TileContent>
+                            </GenericTile>
+                        </HBox>
+                    </VBox>
+                    <HBox id="topDashboardData" class="sapUiSmallMarginEnd">
+                        <List 
+                            id="listTopCreators"
+                            items="{DashboardTilesModel>/topCreators}"
+                            headerText="{i18n>listTopCreatorsHeaderTxt}"
+                        >
+                            <items>
+                                <CustomListItem id="itemTopCreators">
+                                    <Text id="txtTopCreators" text="{DashboardTilesModel>creator} ({DashboardTilesModel>totalRITMs})" class="sapUiTinyMargin" />
+                                </CustomListItem>
+                            </items>
+                        </List>
+
+                        <List 
+                            id="listBusiestDays"
+                            items="{DashboardTilesModel>/busiestDays}"
+                            headerText="{i18n>listBusiestDaysHeaderTxt}"
+                            class="sapUiMediumMarginBegin"
+                        >
+                            <items>
+                                <CustomListItem id="itemBusiestDays">
+                                    <Text id="txtBusiestDays" text="{DashboardTilesModel>date} ({DashboardTilesModel>totalRITMs})" class="sapUiTinyMargin" />
+                                </CustomListItem>
+                            </items>
+                        </List>
+                    </HBox>
+                </HBox>
+                <VBox id="containerDashboard" class="sapUiLargeMarginTop">
                     <viz:VizFrame
                         id="vizFrameTotalPerDate"
                         vizType="timeseries_line"
                         width="100%"
-                        class="sapUiMediumMarginTop"
                     />
-                    <HBox id="containerCreatorRITMs">
-                        <VBox id="containerVFTotalPerCreator" width="50%">
+                    <HBox id="containerCreatorRITMs" class="sapUiLargeMarginTop">
+                        <VBox id="containerVFTotalPerCreator" width="50%" class="sapUiLargeMarginEnd">
                             <viz:VizFrame
                                 id="vizFrameTotalPerCreator"
                                 vizType="bar"
                                 width="100%"
                                 selectData=".selectCreatorData"
-                                class="sapUiMediumMarginTop"
+                                class="sapUiLargeMarginTop"
                             />
                         </VBox>
-                        <VBox id="containerVFDailyRITMsByCreator" width="50%">
+                        <VBox id="containerVFDailyRITMsByCreator" width="50%" class="sapUiLargeMarginTop">
                             <Text
                                 id="txtDislayCreatorRITMsTip"
                                 text="{i18n>txtDislayCreatorRITMsTip}"
                                 textAlign="Center"
                                 width="100%"
-                                class="sapUiMediumMarginTop"
                                 visible="false"
                             />
                             <viz:VizFrame

@@ -214,7 +214,7 @@ sap.ui.define([
             ctxBinding.execute().then(() => {
                 const res = ctxBinding.getBoundContext().getObject().value;
                 const DashboardTilesModel = this.getOwnerComponent().getModel('DashboardTilesModel');
-                DashboardTilesModel.setData(res);
+                DashboardTilesModel.setData(JSON.parse(res));
             }).catch((err) => {
                 console.log(err);
                 MessageToast.show('Error fetching data.');
