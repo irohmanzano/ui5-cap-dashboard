@@ -1,5 +1,5 @@
 {
-  "_version": "1.37.0",
+  "_version": "1.76.0",
   "sap.app": {
     "id": "dashboard",
     "type": "application",
@@ -45,7 +45,7 @@
   "sap.ui5": {
     "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.96.45",
+      "minUI5Version": "1.142.1",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {}

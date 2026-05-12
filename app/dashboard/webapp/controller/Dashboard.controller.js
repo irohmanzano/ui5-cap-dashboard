@@ -213,7 +213,7 @@ sap.ui.define([
             ctxBinding.setParameter('ID', ID);
             ctxBinding.execute().then(() => {
                 const res = ctxBinding.getBoundContext().getObject().value;
-                const DashboardTilesModel = this.getOwnerComponent().getModel(DashboardTilesModel);
+                const DashboardTilesModel = this.getOwnerComponent().getModel('DashboardTilesModel');
                 DashboardTilesModel.setData(res);
             }).catch((err) => {
                 console.log(err);
