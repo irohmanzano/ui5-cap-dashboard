@@ -3,5 +3,14 @@
   "tenant-mode": "dedicated",
   "description": "Security profile of called application",
   "scopes": [],
-  "role-templates": []
+  "role-templates": [],
+  "attributes": [],
+  "oauth2-configuration": {
+    "redirectUris": [
+      "http://localhost:4004/**",
+      "https://*.trial.applicationstudio.cloud.sap/**",
+      "https://*.cfapps.us10-001.hana.ondemand.com/**",
+      "https://api.cf.us10-001.hana.ondemand.com/**"
+    ]
+  }
 }
