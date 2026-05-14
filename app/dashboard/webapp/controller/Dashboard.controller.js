@@ -5,13 +5,14 @@ sap.ui.define([
     'sap/ui/model/FilterOperator',
     'sap/viz/ui5/controls/common/feeds/FeedItem',
     'sap/viz/ui5/data/FlattenedDataset',
-    'sap/ui/core/UIComponent'
-], function (Controller, MessageToast, Filter, FilterOperator, FeedItem, FlattenedDataset, UIComponent) {
+    'sap/ui/core/BusyIndicator'
+], function (Controller, MessageToast, Filter, FilterOperator, FeedItem, FlattenedDataset, BusyIndicator) {
     'use strict';
 
     return Controller.extend('dashboard.controller.Overview', {
         currentSheetID: '',
         loadDashboardData: function (ID) {
+            BusyIndicator.show();
             const remotedata = this.getOwnerComponent().getModel('remotedata');
 
             //RITMs by Creator vizFrame config
@@ -122,6 +123,7 @@ sap.ui.define([
             vizFrameTotalPerDate.addFeed(feedItemTotalPerDateDateCreated);
             vizFrameTotalPerDate.addFeed(feedItemTotalPerDateTotalRITMs);
             this.getDashboardTilesData(ID);
+            BusyIndicator.hide();
         },
         selectCreatorData: function (oEvent) {
             const creatorName = oEvent.getParameter('data')[0].data.Creator;

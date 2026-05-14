@@ -3,8 +3,9 @@ sap.ui.define([
     'sap/ui/model/Filter',
     'sap/ui/model/FilterOperator',
     'sap/m/MessageToast',
-    'sap/m/MessageBox'
-], function (Controller, Filter, FilterOperator, MessageToast, MessageBox) {
+    'sap/m/MessageBox',
+    'sap/ui/core/BusyIndicator'
+], function (Controller, Filter, FilterOperator, MessageToast, MessageBox, BusyIndicator) {
     'use strict';
 
     return Controller.extend('dashboard.controller.ManageDocuments', {
@@ -43,20 +44,28 @@ sap.ui.define([
             });
         },
         uploadFile: async function (oEvent) {
+            BusyIndicator.show();
+            const fileUploaderExcel = this.byId('fileUploaderExcel');
             const file = oEvent.getParameter('files')[0];
             const reader = new FileReader();
             const type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
             if(!file) {
+                fileUploaderExcel.clear();
+                BusyIndicator.hide();
                 return;
             }
 
             const res = await this.checkDuplicateFile(file.name);
 
             if(!res) {
+                fileUploaderExcel.clear();
+                BusyIndicator.hide();
                 return;
             }
 
             if(res.success && res.hasDuplicate) {
+                fileUploaderExcel.clear();
+                BusyIndicator.hide();
                 MessageToast.show('File already exists.');
                 return;
             }
@@ -82,8 +91,12 @@ sap.ui.define([
                     const tableManageDocsFiles = this.byId('tableManageDocsFiles');
                     const items = tableManageDocsFiles.getBinding('items');
                     items.refresh();
+                    fileUploaderExcel.clear();
+                    BusyIndicator.hide();
                 }).catch((err) => {
                     console.log(err);
+                    fileUploaderExcel.clear();
+                    BusyIndicator.hide();
                     MessageToast.show('File upload failed.');
                 });;
             };
@@ -142,6 +155,7 @@ sap.ui.define([
                     actions: [MessageBox.Action.YES, MessageBox.Action.NO],
                     onClose: (oAction) => {
                         if(oAction === MessageBox.Action.YES) {
+                            BusyIndicator.show();
                             const deletedObjects = selectedObjects.map(obj => {
                                 const ctxBinding = remotedata.bindContext(`/Sheets(${obj.ID})`);
                                 return ctxBinding.requestObject().then(() => {
@@ -150,10 +164,12 @@ sap.ui.define([
                                 });
                             });
                             Promise.all(deletedObjects).then(() => {
+                                BusyIndicator.hide();
                                 MessageToast.show(`${selectedObjects.length} item${selectedCtx.length > 1 ? 's' : ''} successfully deleted.`);
                                 items.refresh();
                             }).catch((err) => {
                                     console.log(err);
+                                    BusyIndicator.hide();
                                     MessageToast.show(`Error deleting item${selectedCtx.length > 1 ? 's' : ''}`);
                                 });
                         }
