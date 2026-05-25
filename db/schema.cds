@@ -2,8 +2,14 @@ using { cuid } from '@sap/cds/common';
 
 namespace sap.db;
 
+type categroy: String enum {
+    SSP;
+    OLTP;
+}
+
 entity Sheets: cuid {
     name            : String;
+    category        : String;
     dateUploaded    : Date;
     timestamp       : String;
     uploadedBy      : String;

@@ -4,7 +4,6 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core="sap.ui.core"
     xmlns:f="sap.ui.layout.form"
-    xmlns:u="sap.ui.unified"
 >
     <Page id="pageManageDocuments" title="{i18n>pageManageDocuments}">
         <content>
@@ -32,15 +31,7 @@
                         <headerToolbar>
                             <Toolbar id="toolbarMDF">
                                 <ToolbarSpacer id="tbsMDF" />
-                                <u:FileUploader
-                                    id="fileUploaderExcel"
-                                    class="sapUiSmallMarginBegin"
-                                    fileType="xlsx"
-                                    change=".uploadFile"
-                                    icon="sap-icon://add"
-                                    iconOnly="true"
-                                    buttonOnly="true"
-                                />
+                                <Button id="btnUploadFile" icon="sap-icon://upload" press=".openDialogUploadFile" />
                                 <Button id="btnDeleteMDF" icon="sap-icon://delete" type="Reject" press=".deleteFiles" />
                                 <SearchField id="sFieldMDF" placeholder="{i18n>searchField}" liveChange=".searchTableMDF" width="25%" />
                             </Toolbar>
@@ -48,6 +39,9 @@
                         <columns>
                             <Column id="colMDFName">
                                 <Text id="txtMDFName" text="{i18n>txtMDFName}" />
+                            </Column>
+                            <Column id="colMDFCategory">
+                                <Text id="txtMDFCategory" text="{i18n>txtMDFCategory}" />
                             </Column>
                             <Column id="colMDFDateRange">
                                 <Text id="txtMDFDateRange" text="{i18n>txtMDFDateRange}" />
@@ -66,6 +60,7 @@
                             >
                                 <cells>
                                     <Text id="txtItemName" text="{remotedata>name}" />
+                                    <Text id="txtItemCategory" text="{remotedata>category}" />
                                     <Text id="txtItemDateRange" text="{remotedata>dateRange}" />
                                     <Text id="txtItemUploadedBy" text="{remotedata>uploadedBy}" />
                                     <Text id="txtItemDateUploaded" text="{remotedata>dateUploaded}" />

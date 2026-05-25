@@ -5,11 +5,59 @@ sap.ui.define([
     'sap/ui/model/FilterOperator',
     'sap/viz/ui5/controls/common/feeds/FeedItem',
     'sap/viz/ui5/data/FlattenedDataset',
-    'sap/ui/core/BusyIndicator'
-], function (Controller, MessageToast, Filter, FilterOperator, FeedItem, FlattenedDataset, BusyIndicator) {
+    'sap/ui/core/BusyIndicator',
+    'sap/ui/core/UIComponent'
+], function (Controller, MessageToast, Filter, FilterOperator, FeedItem, FlattenedDataset, BusyIndicator, UIComponent) {
     'use strict';
 
     return Controller.extend('dashboard.controller.Overview', {
+        onInit: function () {
+            const oRouter = UIComponent.getRouterFor(this);
+            oRouter.attachRouteMatched(this.attachRouteMatched, this);
+            oRouter.getRoute('SSPDashboard').attachPatternMatched(this._onPatternMatchedResetDashboard, this);
+            oRouter.getRoute('OLTPDashboard').attachPatternMatched(this._onPatternMatchedResetDashboard, this);
+        },
+        _onPatternMatchedResetDashboard: function () {
+            const DashboardTilesModel = this.getOwnerComponent().getModel('DashboardTilesModel');
+
+            const vizFrameTotalPerDate = this.byId('vizFrameTotalPerDate');
+            const vizFrameTotalPerCreator = this.byId('vizFrameTotalPerCreator');
+            const vizFrameDailyRITMsByCreator = this.byId('vizFrameDailyRITMsByCreator');
+
+            this.currentSheetID = '';
+
+            DashboardTilesModel.setData({
+                fileSource: 'Click to select dataset',
+                totalRITMs: 0,
+                uniqueCreators: 0,
+                topCreators: '',
+                dateRange: '',
+                busiestDays: '',
+                avgRITMsPerDay: 0
+            });
+
+            vizFrameTotalPerDate.destroyDataset();
+            vizFrameTotalPerCreator.destroyDataset();
+            vizFrameDailyRITMsByCreator.destroyDataset();
+
+            vizFrameTotalPerDate.removeAllFeeds();
+            vizFrameTotalPerCreator.removeAllFeeds();
+            vizFrameDailyRITMsByCreator.removeAllFeeds();
+        },
+        attachRouteMatched: function (oEvent) {
+            const routeName = oEvent.getParameter('name');
+            const pageDashboard = this.byId('pageDashboard');
+            const resourceBundle = this.getOwnerComponent().getModel('i18n').getResourceBundle();
+
+            if(routeName === 'SSPDashboard') {
+                const title = resourceBundle.getText('pageDashboardTitle', ['SSP']);
+                pageDashboard.setTitle(title);
+            }
+            else if(routeName === 'OLTPDashboard') {
+                const title = resourceBundle.getText('pageDashboardTitle', ['OLTP']);
+                pageDashboard.setTitle(title);
+            }
+        },
         currentSheetID: '',
         loadDashboardData: function (ID) {
             BusyIndicator.show();

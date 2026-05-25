@@ -39,6 +39,9 @@
                         <Column id="colSelectDatasetName">
                             <Text id="txtSelectDatasetName" text="{i18n>txtMDFName}" />
                         </Column>
+                        <Column id="colSelectDatasetCategory">
+                            <Text id="txtSelectDatasetCategory" text="{i18n>txtMDFCategory}" />
+                        </Column>
                         <Column id="colSelectDatasetDateRange">
                             <Text id="txtSelectDatasetDateRange" text="{i18n>txtMDFDateRange}" />
                         </Column>
@@ -57,6 +60,7 @@
                         >
                             <cells>
                                 <Text id="txtItemSelectDatasetName" text="{remotedata>name}" />
+                                <Text id="txtItemSelectDatasetCategory" text="{remotedata>category}" />
                                 <Text id="txtItemSelectDatasetDateRange" text="{remotedata>dateRange}" />
                                 <Text id="txtItemSelectDatasetUploadedBy" text="{remotedata>uploadedBy}" />
                                 <Text id="txtItemSelectDatasetDateUploaded" text="{remotedata>dateUploaded}" />

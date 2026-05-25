@@ -38,6 +38,14 @@ sap.ui.define([
                             ),
                             new Filter(
                                 {
+                                    path: 'category',
+                                    operator: FilterOperator.Contains,
+                                    value1: query,
+                                    caseSensitive: false
+                                } 
+                            ),
+                            new Filter(
+                                {
                                     path: 'dateRange',
                                     operator: FilterOperator.Contains,
                                     value1: query,

@@ -7,9 +7,10 @@ sap.ui.define([
         "sap/ui/Device",
         "dashboard/model/models",
         'sap/ui/model/json/JSONModel',
-        './controller/SelectDataset'
+        './controller/SelectDataset',
+        './controller/UploadFile'
     ],
-    function (UIComponent, Device, models, JSONModel, SelectDataset) {
+    function (UIComponent, Device, models, JSONModel, SelectDataset, UploadFile) {
         "use strict";
 
         return UIComponent.extend("dashboard.Component", {
@@ -27,12 +28,17 @@ sap.ui.define([
                 UIComponent.prototype.init.apply(this, arguments);
                 
                 const ToolBarModel = new JSONModel({
-                    selectedKey: 'dashboard',
+                    selectedKey: 'SSPDashboard',
                     navigation: [
                         {   
                             icon: 'sap-icon://bbyd-dashboard',
-                            key: 'dashboard',
-                            text: 'Dashboard'
+                            key: 'SSPDashboard',
+                            text: 'SSP Dashboard'
+                        },
+                        {   
+                            icon: 'sap-icon://Chart-Tree-Map',
+                            key: 'OLTPDashboard',
+                            text: 'OLTP Dashboard'
                         },
                         {
                             icon: 'sap-icon://add-document',
@@ -52,22 +58,51 @@ sap.ui.define([
                     avgRITMsPerDay: 0
                 });
 
+                const FileCategoryModel = new JSONModel({
+                    selectedKey: 'SSP',
+                    items: [
+                        {
+                            key: 'SSP',
+                            text: 'SSP'
+                        },
+                        {
+                            key: 'OLTP',
+                            text: 'OLTP'
+                        }
+                    ]
+                });
+
+                const FileUploadModel = new JSONModel({
+                    category: '',
+                    type: '',
+                    file: ''
+                });
+
                 // enable routing
                 this.getRouter().initialize();
 
                 this._SelectDataset = new SelectDataset(this.getRootControl());
+                this._UploadFile = new UploadFile(this.getRootControl());
 
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
                 this.setModel(ToolBarModel, 'ToolBarModel');
                 this.setModel(DashboardTilesModel, 'DashboardTilesModel');
+                this.setModel(FileCategoryModel, 'FileCategoryModel');
+                this.setModel(FileUploadModel, 'FileUploadModel');
             },
             exit: function () {
                 this._SelectDataset.destroy();
                 delete this._SelectDataset;
+
+                this._UploadFile.destrou();
+                delete this._UploadFile;
             },
             openDialogSelectDataset: function(oController) {
                 this._SelectDataset.open(oController);
+            },
+            openDialogUploadFile: function () {
+                this._UploadFile.open();
             }
         });
     }

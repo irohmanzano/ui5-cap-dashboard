@@ -7,7 +7,6 @@
 >
     <Page
         id="pageDashboard"
-        title="{i18n>pageDashboardTitle}"
     >
         <content>
             <VBox id="containerMainDashboard" class="sapUiSmallMargin">

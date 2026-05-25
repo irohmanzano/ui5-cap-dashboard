@@ -95,8 +95,13 @@
       "routes": [
         {
           "pattern": "",
-          "name": "dashboard",
-          "target": "dashboard"
+          "name": "SSPDashboard",
+          "target": "SSPDashboard"
+        },
+        {
+          "pattern": "OLTPDashboard",
+          "name": "OLTPDashboard",
+          "target": "OLTPDashboard"
         },
         {
           "pattern": "managedocuments",
@@ -105,8 +110,12 @@
         }
       ],
       "targets": {
-        "dashboard": {
-          "viewId": "dashboard",
+        "SSPDashboard": {
+          "viewId": "SSPDashboard",
+          "viewName": "Dashboard"
+        },
+        "OLTPDashboard": {
+          "viewId": "OLTPDashboard",
           "viewName": "Dashboard"
         },
         "managedocuments": {
