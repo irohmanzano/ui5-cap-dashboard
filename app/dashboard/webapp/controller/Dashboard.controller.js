@@ -14,15 +14,13 @@ sap.ui.define([
         onInit: function () {
             const oRouter = UIComponent.getRouterFor(this);
             oRouter.attachRouteMatched(this.attachRouteMatched, this);
-            oRouter.getRoute('SSPDashboard').attachPatternMatched(this._onPatternMatchedResetDashboard, this);
-            oRouter.getRoute('OLTPDashboard').attachPatternMatched(this._onPatternMatchedResetDashboard, this);
         },
-        _onPatternMatchedResetDashboard: function () {
+        attachRouteMatched: function (oEvent) {
             const DashboardTilesModel = this.getOwnerComponent().getModel('DashboardTilesModel');
 
-            const vizFrameTotalPerDate = this.byId('vizFrameTotalPerDate');
-            const vizFrameTotalPerCreator = this.byId('vizFrameTotalPerCreator');
-            const vizFrameDailyRITMsByCreator = this.byId('vizFrameDailyRITMsByCreator');
+            const routeName = oEvent.getParameter('name');
+            const pageDashboard = this.byId('pageDashboard');
+            const resourceBundle = this.getOwnerComponent().getModel('i18n').getResourceBundle();
 
             this.currentSheetID = '';
 
@@ -35,19 +33,6 @@ sap.ui.define([
                 busiestDays: '',
                 avgRITMsPerDay: 0
             });
-
-            vizFrameTotalPerDate.destroyDataset();
-            vizFrameTotalPerCreator.destroyDataset();
-            vizFrameDailyRITMsByCreator.destroyDataset();
-
-            vizFrameTotalPerDate.removeAllFeeds();
-            vizFrameTotalPerCreator.removeAllFeeds();
-            vizFrameDailyRITMsByCreator.removeAllFeeds();
-        },
-        attachRouteMatched: function (oEvent) {
-            const routeName = oEvent.getParameter('name');
-            const pageDashboard = this.byId('pageDashboard');
-            const resourceBundle = this.getOwnerComponent().getModel('i18n').getResourceBundle();
 
             if(routeName === 'SSPDashboard') {
                 const title = resourceBundle.getText('pageDashboardTitle', ['SSP']);
