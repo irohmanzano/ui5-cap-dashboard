@@ -17,6 +17,15 @@ sap.ui.define([
             const oController = oCallerController;
             const oView = this._oView;
             const fragId = oView.getId() + `--${Date.now()}---`;
+            const currentRouteName = oCallerController.currentRouteName;
+            let category = '';
+            if(currentRouteName === 'SSPDashboard') {
+                category = 'SSP';
+            }
+            else if(currentRouteName === 'OLTPDashboard') {
+                category = 'OLTP';
+            }
+
             const controller = {
                 closeDialogSelectDataset: function () {
                     const dialogSelectDataset = Fragment.byId(fragId, 'dialogSelectDataset');
@@ -27,7 +36,7 @@ sap.ui.define([
                     const tableSelectDataset = Fragment.byId(fragId, 'tableSelectDataset');
                     const items = tableSelectDataset.getBinding('items');
 
-                    const filter = new Filter({
+                    const filterGeneral = new Filter({
                         filters: [
                             new Filter(
                                 {
@@ -40,10 +49,10 @@ sap.ui.define([
                             new Filter(
                                 {
                                     path: 'category',
-                                    operator: FilterOperator.Contains,
+                                    operator: FilterOperator.EQ,
                                     value1: query,
                                     caseSensitive: false
-                                } 
+                                }
                             ),
                             new Filter(
                                 {
@@ -64,12 +73,39 @@ sap.ui.define([
                         ],
                         and: false
                     });
+    
+                    const filter = new Filter({
+                        filters: [
+                            new Filter(
+                                {
+                                    path: 'category',
+                                    operator: FilterOperator.EQ,
+                                    value1: category,
+                                    caseSensitive: false
+                                }
+                            ),
+                            filterGeneral
+                        ],
+                        and: true
+                    });
                     items.filter(filter);
                 },
                 refreshTableItems: function () {
+                    const filter = new Filter({
+                        filters: [
+                            new Filter({
+                                path: 'category',
+                                operator: FilterOperator.EQ,
+                                value1: category,
+                                caseSensitive: false
+                            })
+                        ],
+                        and: false
+                    });
                     const tableSelectDataset = Fragment.byId(fragId, 'tableSelectDataset');
                     const items = tableSelectDataset.getBinding('items');
                     items.refresh();
+                    items.filter(filter);
                 },
                 setCurrentSheetModel: function (oEvent) {
                     const ID = oEvent.getSource().getBindingContext('remotedata').getObject().ID;
