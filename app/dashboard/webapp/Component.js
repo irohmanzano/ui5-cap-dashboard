@@ -48,7 +48,17 @@ sap.ui.define([
                     ]
                 });
 
-                const DashboardTilesModel = new JSONModel({
+                const SSPDashboardTilesModel = new JSONModel({
+                    fileSource: 'Click to select dataset',
+                    totalRITMs: 0,
+                    uniqueCreators: 0,
+                    topCreators: '',
+                    dateRange: '',
+                    busiestDays: '',
+                    avgRITMsPerDay: 0
+                });
+
+                const OLTPDashboardTilesModel = new JSONModel({
                     fileSource: 'Click to select dataset',
                     totalRITMs: 0,
                     uniqueCreators: 0,
@@ -87,7 +97,8 @@ sap.ui.define([
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
                 this.setModel(ToolBarModel, 'ToolBarModel');
-                this.setModel(DashboardTilesModel, 'DashboardTilesModel');
+                this.setModel(SSPDashboardTilesModel, 'SSPDashboardTilesModel');
+                this.setModel(OLTPDashboardTilesModel, 'OLTPDashboardTilesModel');
                 this.setModel(FileCategoryModel, 'FileCategoryModel');
                 this.setModel(FileUploadModel, 'FileUploadModel');
             },

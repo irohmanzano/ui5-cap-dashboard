@@ -10,64 +10,127 @@
     >
         <content>
             <VBox id="containerMainDashboard" class="sapUiSmallMargin">
-                <HBox id="containerDashboardAggregations" class="sapUiSmallMarginEnd" justifyContent="SpaceBetween">
+                <HBox id="containerSSPDashboardAggregations" class="sapUiSmallMarginEnd" justifyContent="SpaceBetween">
                     <VBox 
-                        id="containerDashboardTiles"
+                        id="containerSSPDashboardTiles"
                     >
-                        <HBox id="containerDataset">
-                            <GenericTile id="gTileSelectedDataset" header="{i18n>gTileSelectedDatasetHeader}" class="sapUiTinyMargin" frameType="TwoByHalf" press=".openDialogSelectDataset" >
-                                <TileContent id="gTileContentSelectedDataset">
-                                    <Text id="txtSelectedDataset" text="{DashboardTilesModel>/fileSource}" />
+                        <HBox id="containerSSPDataset">
+                            <GenericTile id="gTileSSPSelectedDataset" header="{i18n>gTileSelectedDatasetHeader}" class="sapUiTinyMargin" frameType="TwoByHalf" press=".openDialogSelectDataset" >
+                                <TileContent id="gTileSSPContentSelectedDataset">
+                                    <Text id="txtSSPSelectedDataset" text="{SSPDashboardTilesModel>/fileSource}" />
                                 </TileContent>
                             </GenericTile>
-                            <GenericTile id="gTileDateRange" pressEnabled="false" header="{i18n>gTileDateRangeHeader}" class="sapUiTinyMargin" frameType="TwoByHalf" >
-                                <TileContent id="gTileContentDateRange">
-                                    <Text id="txtDateRange" text="{DashboardTilesModel>/dateRange}" />
+                            <GenericTile id="gTileSSPDateRange" pressEnabled="false" header="{i18n>gTileDateRangeHeader}" class="sapUiTinyMargin" frameType="TwoByHalf" >
+                                <TileContent id="gTileSSPContentDateRange">
+                                    <Text id="txtSSPDateRange" text="{SSPDashboardTilesModel>/dateRange}" />
                                 </TileContent>
                             </GenericTile>
                         </HBox>
-                        <HBox id="containerTiles" class="sapUiLargeMarginTop" >
-                            <GenericTile id="gTileTotalRITMs" pressEnabled="false" header="{i18n>gTileTotalRITMsHeader}" subheader="{i18n>gTileTotalRITMsSubHeader}" class="sapUiTinyMargin" >
-                                <TileContent id="gTileContentTotalRITMs" unit="{i18n>unitTotalRITMs}">
-                                    <NumericContent id="nContentTotalRITMs" value="{DashboardTilesModel>/totalRITMs}" icon="sap-icon://collections-management" />
+                        <HBox id="containerSSPTiles" class="sapUiLargeMarginTop" >
+                            <GenericTile id="gTileSSPTotalRITMs" pressEnabled="false" header="{i18n>gTileTotalRITMsHeader}" subheader="{i18n>gTileTotalRITMsSubHeader}" class="sapUiTinyMargin" >
+                                <TileContent id="gTileSSPContentTotalRITMs" unit="{i18n>unitTotalRITMs}">
+                                    <NumericContent id="nContentSSPTotalRITMs" value="{SSPDashboardTilesModel>/totalRITMs}" icon="sap-icon://collections-management" />
                                 </TileContent>
                             </GenericTile>
 
-                            <GenericTile id="gTileUniqueCreators" pressEnabled="false" header="{i18n>gTileUniqueCreatorsHeader}" subheader="{i18n>gTileUniqueCreatorsSubHeader}" class="sapUiTinyMargin" >
-                                <TileContent id="gTileContentUniqueCreators" unit="{i18n>unitUniqueCreators}">
-                                    <NumericContent id="nContentUniqueCreators" value="{DashboardTilesModel>/uniqueCreators}" icon="sap-icon://activity-individual" />
+                            <GenericTile id="gTileSSPUniqueCreators" pressEnabled="false" header="{i18n>gTileUniqueCreatorsHeader}" subheader="{i18n>gTileUniqueCreatorsSubHeader}" class="sapUiTinyMargin" >
+                                <TileContent id="gTileSSPContentUniqueCreators" unit="{i18n>unitUniqueCreators}">
+                                    <NumericContent id="nContentSSPUniqueCreators" value="{SSPDashboardTilesModel>/uniqueCreators}" icon="sap-icon://activity-individual" />
                                 </TileContent>
                             </GenericTile>
 
-                            <GenericTile id="gTileAvgRITMsPerDay" pressEnabled="false" header="{i18n>gTileAvgRITMsPerDayHeader}" subheader="{i18n>gTileAvgRITMsPerDaySubHeader}" class="sapUiTinyMargin" >
-                                <TileContent id="gTileContentAvgRITMsPerDay" unit="{i18n>unitAvgRITMsPerDay}">
-                                    <NumericContent id="nContentAvgRITMsPerDay" value="{DashboardTilesModel>/avgRITMsPerDay}" icon="sap-icon://line-charts" />
+                            <GenericTile id="gTileSSPAvgRITMsPerDay" pressEnabled="false" header="{i18n>gTileAvgRITMsPerDayHeader}" subheader="{i18n>gTileAvgRITMsPerDaySubHeader}" class="sapUiTinyMargin" >
+                                <TileContent id="gTileSSPContentAvgRITMsPerDay" unit="{i18n>unitAvgRITMsPerDay}">
+                                    <NumericContent id="nContentSSPAvgRITMsPerDay" value="{SSPDashboardTilesModel>/avgRITMsPerDay}" icon="sap-icon://line-charts" />
                                 </TileContent>
                             </GenericTile>
                         </HBox>
                     </VBox>
-                    <HBox id="topDashboardData" class="sapUiSmallMarginEnd">
+                    <HBox id="topSSPDashboardData" class="sapUiSmallMarginEnd">
                         <List 
-                            id="listTopCreators"
-                            items="{DashboardTilesModel>/topCreators}"
+                            id="listSSPTopCreators"
+                            items="{SSPDashboardTilesModel>/topCreators}"
                             headerText="{i18n>listTopCreatorsHeaderTxt}"
                         >
                             <items>
-                                <CustomListItem id="itemTopCreators">
-                                    <Text id="txtTopCreators" text="{DashboardTilesModel>creator} ({DashboardTilesModel>totalRITMs})" class="sapUiTinyMargin" />
+                                <CustomListItem id="itemSSPTopCreators">
+                                    <Text id="txtSSPTopCreators" text="{SSPDashboardTilesModel>creator} ({SSPDashboardTilesModel>totalRITMs})" class="sapUiTinyMargin" />
                                 </CustomListItem>
                             </items>
                         </List>
 
                         <List 
-                            id="listBusiestDays"
-                            items="{DashboardTilesModel>/busiestDays}"
+                            id="listSSPBusiestDays"
+                            items="{SSPDashboardTilesModel>/busiestDays}"
                             headerText="{i18n>listBusiestDaysHeaderTxt}"
                             class="sapUiMediumMarginBegin"
                         >
                             <items>
-                                <CustomListItem id="itemBusiestDays">
-                                    <Text id="txtBusiestDays" text="{DashboardTilesModel>date} ({DashboardTilesModel>totalRITMs})" class="sapUiTinyMargin" />
+                                <CustomListItem id="itemSSPBusiestDays">
+                                    <Text id="txtSSPBusiestDays" text="{SSPDashboardTilesModel>date} ({SSPDashboardTilesModel>totalRITMs})" class="sapUiTinyMargin" />
+                                </CustomListItem>
+                            </items>
+                        </List>
+                    </HBox>
+                </HBox>
+                <HBox id="containerOLTPDashboardAggregations" class="sapUiSmallMarginEnd" justifyContent="SpaceBetween">
+                    <VBox 
+                        id="containerOLTPDashboardTiles"
+                    >
+                        <HBox id="containerOLTPDataset">
+                            <GenericTile id="gTileOLTPSelectedDataset" header="{i18n>gTileSelectedDatasetHeader}" class="sapUiTinyMargin" frameType="TwoByHalf" press=".openDialogSelectDataset" >
+                                <TileContent id="gTileOLTPContentSelectedDataset">
+                                    <Text id="txtOLTPSelectedDataset" text="{OLTPDashboardTilesModel>/fileSource}" />
+                                </TileContent>
+                            </GenericTile>
+                            <GenericTile id="gTileOLTPDateRange" pressEnabled="false" header="{i18n>gTileDateRangeHeader}" class="sapUiTinyMargin" frameType="TwoByHalf" >
+                                <TileContent id="gTileOLTPContentDateRange">
+                                    <Text id="txtOLTPDateRange" text="{OLTPDashboardTilesModel>/dateRange}" />
+                                </TileContent>
+                            </GenericTile>
+                        </HBox>
+                        <HBox id="containerOLTPTiles" class="sapUiLargeMarginTop" >
+                            <GenericTile id="gTileOLTPTotalRITMs" pressEnabled="false" header="{i18n>gTileTotalRITMsHeader}" subheader="{i18n>gTileTotalRITMsSubHeader}" class="sapUiTinyMargin" >
+                                <TileContent id="gTileOLTPContentTotalRITMs" unit="{i18n>unitTotalRITMs}">
+                                    <NumericContent id="nContentOLTPTotalRITMs" value="{OLTPDashboardTilesModel>/totalRITMs}" icon="sap-icon://collections-management" />
+                                </TileContent>
+                            </GenericTile>
+
+                            <GenericTile id="gTileOLTPUniqueCreators" pressEnabled="false" header="{i18n>gTileUniqueCreatorsHeader}" subheader="{i18n>gTileUniqueCreatorsSubHeader}" class="sapUiTinyMargin" >
+                                <TileContent id="gTileOLTPContentUniqueCreators" unit="{i18n>unitUniqueCreators}">
+                                    <NumericContent id="nContentOLTPUniqueCreators" value="{OLTPDashboardTilesModel>/uniqueCreators}" icon="sap-icon://activity-individual" />
+                                </TileContent>
+                            </GenericTile>
+
+                            <GenericTile id="gTileOLTPAvgRITMsPerDay" pressEnabled="false" header="{i18n>gTileAvgRITMsPerDayHeader}" subheader="{i18n>gTileAvgRITMsPerDaySubHeader}" class="sapUiTinyMargin" >
+                                <TileContent id="gTileOLTPContentAvgRITMsPerDay" unit="{i18n>unitAvgRITMsPerDay}">
+                                    <NumericContent id="nContentOLTPAvgRITMsPerDay" value="{OLTPDashboardTilesModel>/avgRITMsPerDay}" icon="sap-icon://line-charts" />
+                                </TileContent>
+                            </GenericTile>
+                        </HBox>
+                    </VBox>
+                    <HBox id="topOLTPDashboardData" class="sapUiSmallMarginEnd">
+                        <List 
+                            id="listOLTPTopCreators"
+                            items="{OLTPDashboardTilesModel>/topCreators}"
+                            headerText="{i18n>listTopCreatorsHeaderTxt}"
+                        >
+                            <items>
+                                <CustomListItem id="itemOLTPTopCreators">
+                                    <Text id="txtOLTPTopCreators" text="{OLTPDashboardTilesModel>creator} ({OLTPDashboardTilesModel>totalRITMs})" class="sapUiTinyMargin" />
+                                </CustomListItem>
+                            </items>
+                        </List>
+
+                        <List 
+                            id="listOLTPBusiestDays"
+                            items="{OLTPDashboardTilesModel>/busiestDays}"
+                            headerText="{i18n>listBusiestDaysHeaderTxt}"
+                            class="sapUiMediumMarginBegin"
+                        >
+                            <items>
+                                <CustomListItem id="itemOLTPBusiestDays">
+                                    <Text id="txtOLTPBusiestDays" text="{OLTPDashboardTilesModel>date} ({OLTPDashboardTilesModel>totalRITMs})" class="sapUiTinyMargin" />
                                 </CustomListItem>
                             </items>
                         </List>

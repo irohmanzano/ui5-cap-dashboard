@@ -16,33 +16,27 @@ sap.ui.define([
             oRouter.attachRouteMatched(this.attachRouteMatched, this);
         },
         attachRouteMatched: function (oEvent) {
-            const DashboardTilesModel = this.getOwnerComponent().getModel('DashboardTilesModel');
-
             const routeName = oEvent.getParameter('name');
             const pageDashboard = this.byId('pageDashboard');
             const resourceBundle = this.getOwnerComponent().getModel('i18n').getResourceBundle();
+            const containerSSPDashboardAggregations = this.byId('containerSSPDashboardAggregations');
+            const containerOLTPDashboardAggregations = this.byId('containerOLTPDashboardAggregations');
 
-            this.currentSheetID = '';
-
-            DashboardTilesModel.setData({
-                fileSource: 'Click to select dataset',
-                totalRITMs: 0,
-                uniqueCreators: 0,
-                topCreators: '',
-                dateRange: '',
-                busiestDays: '',
-                avgRITMsPerDay: 0
-            });
-
+            this.currentRouteName = routeName;
             if(routeName === 'SSPDashboard') {
+                containerSSPDashboardAggregations.setVisible(true);
+                containerOLTPDashboardAggregations.setVisible(false);
                 const title = resourceBundle.getText('pageDashboardTitle', ['SSP']);
                 pageDashboard.setTitle(title);
             }
             else if(routeName === 'OLTPDashboard') {
+                containerSSPDashboardAggregations.setVisible(false);
+                containerOLTPDashboardAggregations.setVisible(true);
                 const title = resourceBundle.getText('pageDashboardTitle', ['OLTP']);
                 pageDashboard.setTitle(title);
             }
         },
+        currentRouteName: '',
         currentSheetID: '',
         loadDashboardData: function (ID) {
             BusyIndicator.show();
@@ -248,8 +242,14 @@ sap.ui.define([
             ctxBinding.setParameter('ID', ID);
             ctxBinding.execute().then(() => {
                 const res = ctxBinding.getBoundContext().getObject().value;
-                const DashboardTilesModel = this.getOwnerComponent().getModel('DashboardTilesModel');
-                DashboardTilesModel.setData(JSON.parse(res));
+                if(this.currentRouteName === 'SSPDashboard') {
+                    const SSPDashboardTilesModel = this.getOwnerComponent().getModel('SSPDashboardTilesModel');
+                    SSPDashboardTilesModel.setData(JSON.parse(res));
+                }
+                else if(this.currentRouteName === 'OLTPDashboard') {
+                    const OLTPDashboardTilesModel = this.getOwnerComponent().getModel('OLTPDashboardTilesModel');
+                    OLTPDashboardTilesModel.setData(JSON.parse(res));
+                }
             }).catch((err) => {
                 console.log(err);
                 MessageToast.show('Error fetching data.');

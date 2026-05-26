@@ -16,14 +16,15 @@ sap.ui.define([
         open: function (oCallerController) {
             const oController = oCallerController;
             const oView = this._oView;
+            const fragId = oView.getId() + `--${Date.now()}---`;
             const controller = {
                 closeDialogSelectDataset: function () {
-                    const dialogSelectDataset = oView.byId('dialogSelectDataset');
+                    const dialogSelectDataset = Fragment.byId(fragId, 'dialogSelectDataset');
                     dialogSelectDataset.close();
                 },
                 searchTableSelectDataset: function (oEvent) {
                     const query = oEvent.getParameter('newValue');
-                    const tableSelectDataset = oView.byId('tableSelectDataset');
+                    const tableSelectDataset = Fragment.byId(fragId, 'tableSelectDataset');
                     const items = tableSelectDataset.getBinding('items');
 
                     const filter = new Filter({
@@ -66,7 +67,7 @@ sap.ui.define([
                     items.filter(filter);
                 },
                 refreshTableItems: function () {
-                    const tableSelectDataset = oView.byId('tableSelectDataset');
+                    const tableSelectDataset = Fragment.byId(fragId, 'tableSelectDataset');
                     const items = tableSelectDataset.getBinding('items');
                     items.refresh();
                 },
@@ -78,19 +79,23 @@ sap.ui.define([
                 }
             };
 
-            if(!oView.byId('dialogSelectDataset')) {
+            if(!Fragment.byId(fragId, 'dialogSelectDataset')) {
                 Fragment.load({
-                    id: oView.getId(),
+                    id: fragId,
                     name: 'dashboard.view.SelectDataset',
                     controller
                 }).then((oDialog) => {
                     oView.addDependent(oDialog);
                     oDialog.attachAfterOpen(controller.refreshTableItems);
+                    oDialog.attachAfterClose(() => {
+                        oView.removeDependent(oDialog);
+                        oDialog.destroy();
+                    });
                     oDialog.open();
                 });
             }
             else {
-                oView.byId('dialogSelectDataset').open();
+                Fragment.byId(fragId, 'dialogSelectDataset').open();
             }
         }
     });
